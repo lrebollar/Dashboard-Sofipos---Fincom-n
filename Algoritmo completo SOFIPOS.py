@@ -35,14 +35,6 @@ df = df[['nivel',
 df['periodo'] = pd.to_datetime(df['periodo'].astype(str), format='%Y%m').dt.to_period('M')
 
 # Algoritmo de series de tiempo clave
-## Sofipos a analizar
-sofipos_nam = ['Total SOFIPOS', # Sector SOFIPOS
-               'Fincomún',      
-               'Nu México',     # SOFIPO más grande
-               'Crediclub',     # SOFIPO más grande que Fincomún
-               'Opciones Empresariales' # SOFIPO más chica que Fincomún
-               ]
-
 ## Tablas por grupo de variables 
 ## Activo
 ### Cartera de crédito
@@ -64,7 +56,8 @@ df_cartera = pd.DataFrame(
  'Créditos comerciales_w',
  'Créditos consumo_w',
  'Créditos vivienda_w',
- 'sofipo']
+ 'sofipo',
+ 'fintech']
     )
 
 #### Set de variables
@@ -98,7 +91,8 @@ df_riesgo = pd.DataFrame(
  'Créditos consumo_w',
  'Créditos vivienda_w',
  'Estimaciones preventivas para riesgos crediticios adicional_w',
- 'sofipo']) 
+ 'sofipo',
+ 'fintech']) 
 
 #### Set de variables
 var_riesgo = [
@@ -127,7 +121,8 @@ df_riesgo_E1E2 = pd.DataFrame(columns= ['periodo',
  'Créditos comerciales (E1 + E2)_w',
  'Créditos consumo (E1 + E2)_w',
  'Créditos vivienda (E1 + E2)_w',
- 'sofipo']
+ 'sofipo',
+ 'fintech']
  )
 
 #### Set de variables
@@ -156,7 +151,8 @@ df_riesgo_E3 = pd.DataFrame(columns=['periodo',
  'Créditos comerciales_w',
  'Créditos consumo_w',
  'Créditos vivienda_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_riesgo_E3 = [
@@ -190,7 +186,8 @@ df_captacion = pd.DataFrame(columns= ['periodo',
  'Depósitos a plazo_w',
  'Depósitos de exigibilidad inmediata_w',
  'Títulos de crédito emitidos_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_captacion = [
@@ -215,7 +212,8 @@ df_prestamosb = pd.DataFrame(columns=['periodo',
  'Préstamos bancarios y de otros organismos_pct_YoY',
  'De corto plazo_w',
  'De largo plazo_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_prestamosb = [
@@ -239,7 +237,8 @@ df_CC = pd.DataFrame(columns=['periodo',
  'Capital ganado_pct_YoY',
  'Capital contribuido_w',
  'Capital ganado_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_CC = [
@@ -270,7 +269,8 @@ df_CG = pd.DataFrame(columns=['periodo',
  'Otros resultados integrales_w',
  'Reservas de capital_w',
  'Resultados acumulados_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_CG = [
@@ -299,7 +299,8 @@ df_racum = pd.DataFrame(columns=['periodo',
  'Incremento por actualización del resultado de ejercicios anteriores_w',
  'Resultado Neto_w',
  'Resultado de ejercicios anteriores_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_racum = [
@@ -356,7 +357,8 @@ df_RE = pd.DataFrame(columns=['periodo',
  'Otros resultados integrales_w',
  'Participación en ORI de otras entidades_w',
  'RESULTADO INTEGRAL_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_RE = [
@@ -431,7 +433,8 @@ df_ingint = pd.DataFrame(columns=['periodo',
  'Dividendos de instrumentos financieros que califican como instrumentos financieros de capital_w',
  'Utilidad por valorización_w',
  'Incremento por actualización de ingresos por intereses _w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_ingint = [
@@ -469,7 +472,8 @@ df_intE1E2 = pd.DataFrame(columns=['periodo',
  'Créditos comerciales (E1 + E2)_w',
  'Créditos consumo (E1 + E2)_w',
  'Créditos vivienda (E1 + E2)_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_intE1E2 = [
@@ -497,7 +501,8 @@ df_intE3 = pd.DataFrame(columns=['periodo',
  'Créditos comerciales_w',
  'Créditos consumo_w',
  'Créditos vivienda_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_intE3 = [
@@ -534,7 +539,8 @@ df_ind = pd.DataFrame(columns=['periodo',
  'ROE_pct_YoY',
  'Tasa de interés implícita (TII) cartera de crédito E1 + E2_pct_YoY',
  'Tasa de interés implícita (TII) pasiva_pct_YoY',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
 
 #### Set de variables
 var_ind = [
@@ -570,7 +576,8 @@ df_castigo = pd.DataFrame(columns=['periodo',
  'Créditos comerciales_w',
  'Créditos consumo_w',
  'Créditos vivienda_w',
- 'sofipo'])
+ 'sofipo',
+ 'fintech'])
  
 #### Set de variables
 var_castigo = [
@@ -580,13 +587,39 @@ var_castigo = [
         27200088,	# Créditos vivienda
     ]
 
+## Sofipos a analizar
+df_sofipos_nam = pd.DataFrame({
+    'nombre' : ['Fincomún',
+               'Tamazula',
+               'Libertad',
+               'Sofiexpress',
+               'Crediclub',
+               'Total SOFIPOS',
+               'Klar',  #
+                'Nu México', #
+                'Stori', #
+                'F Broxel', #
+                'Fondeadora'],
+    'fintech' : ['NO',
+               'NO',
+               'NO',
+               'NO',
+               'NO',
+               'NO',
+               'SI',  #
+                'SI', #
+                'SI', #
+                'SI', #
+                'SI']
+    })
 
 # Algoritmo final 
 dict_sofipos = {}
 
-for sofipo in sofipos_nam:
+for sofipo in df_sofipos_nam['nombre']:
 
     df_sofipo = df[df['nombre_entidad'] == sofipo]
+    fintech = df_sofipos_nam[df_sofipos_nam['nombre'] == sofipo]['fintech'].iat[0]
 
     ## ACTIVO: 
     print(f'Se agregará información de Activo de la SOFIPO: {sofipo}')
@@ -605,7 +638,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_cartera_pivot[df_sofipo_cartera_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_cartera_pivot[df_sofipo_cartera_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_cartera_pivot[f'{var}_i_b100'] = round((df_sofipo_cartera_pivot[var]/base)*100, 2)
         df_sofipo_cartera_pivot[f'{var}_pct_YoY'] = round(df_sofipo_cartera_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -617,6 +650,7 @@ for sofipo in sofipos_nam:
         df_sofipo_cartera_pivot[f'{var}_w'] = round((df_sofipo_cartera_pivot[var]/df_sofipo_cartera_pivot['Cartera de crédito'])*100, 2)
 
     df_sofipo_cartera_pivot['sofipo'] = sofipo
+    df_sofipo_cartera_pivot['fintech'] = fintech
 
     df_cartera = pd.concat([df_cartera, df_sofipo_cartera_pivot], ignore_index=True)
 
@@ -637,7 +671,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_riesgo_pivot[df_sofipo_riesgo_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_riesgo_pivot[df_sofipo_riesgo_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_riesgo_pivot[f'{var}_i_b100'] = round((df_sofipo_riesgo_pivot[var]/base)*100, 2)
         df_sofipo_riesgo_pivot[f'{var}_pct_YoY'] = round(df_sofipo_riesgo_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -649,6 +683,7 @@ for sofipo in sofipos_nam:
         df_sofipo_riesgo_pivot[f'{var}_w'] = round((df_sofipo_riesgo_pivot[var]/df_sofipo_riesgo_pivot['Estimación preventiva para riesgos crediticios'])*100, 2)
 
     df_sofipo_riesgo_pivot['sofipo'] = sofipo
+    df_sofipo_riesgo_pivot['fintech'] = fintech
 
     df_riesgo = pd.concat([df_riesgo, df_sofipo_riesgo_pivot], ignore_index=True)
 
@@ -669,7 +704,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_riesgo_E1E2_pivot[df_sofipo_riesgo_E1E2_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_riesgo_E1E2_pivot[df_sofipo_riesgo_E1E2_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_riesgo_E1E2_pivot[f'{var}_i_b100'] = round((df_sofipo_riesgo_E1E2_pivot[var]/base)*100, 2)
         df_sofipo_riesgo_E1E2_pivot[f'{var}_pct_YoY'] = round(df_sofipo_riesgo_E1E2_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -681,6 +716,7 @@ for sofipo in sofipos_nam:
         df_sofipo_riesgo_E1E2_pivot[f'{var}_w'] = round((df_sofipo_riesgo_E1E2_pivot[var]/df_sofipo_riesgo_E1E2_pivot['Cartera de crédito con riesgo de crédito (E1 + E2)'])*100, 2)
 
     df_sofipo_riesgo_E1E2_pivot['sofipo'] = sofipo
+    df_sofipo_riesgo_E1E2_pivot['fintech'] = fintech
 
     df_riesgo_E1E2 = pd.concat([df_riesgo_E1E2, df_sofipo_riesgo_E1E2_pivot], ignore_index=True)
 
@@ -701,7 +737,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_riesgo_E3_pivot[df_sofipo_riesgo_E3_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_riesgo_E3_pivot[df_sofipo_riesgo_E3_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_riesgo_E3_pivot[f'{var}_i_b100'] = round((df_sofipo_riesgo_E3_pivot[var]/base)*100, 2)
         df_sofipo_riesgo_E3_pivot[f'{var}_pct_YoY'] = round(df_sofipo_riesgo_E3_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -713,6 +749,7 @@ for sofipo in sofipos_nam:
         df_sofipo_riesgo_E3_pivot[f'{var}_w'] = round((df_sofipo_riesgo_E3_pivot[var]/df_sofipo_riesgo_E3_pivot['Cartera de crédito con riesgo de crédito etapa 3'])*100, 2)
 
     df_sofipo_riesgo_E3_pivot['sofipo'] = sofipo
+    df_sofipo_riesgo_E3_pivot['fintech'] = fintech
 
     df_riesgo_E3 = pd.concat([df_riesgo_E3, df_sofipo_riesgo_E3_pivot], ignore_index=True)
 
@@ -736,7 +773,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_captacion_pivot[df_sofipo_captacion_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_captacion_pivot[df_sofipo_captacion_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_captacion_pivot[f'{var}_i_b100'] = round((df_sofipo_captacion_pivot[var]/base)*100, 2)
         df_sofipo_captacion_pivot[f'{var}_pct_YoY'] = round(df_sofipo_captacion_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -748,6 +785,7 @@ for sofipo in sofipos_nam:
         df_sofipo_captacion_pivot[f'{var}_w'] = round((df_sofipo_captacion_pivot[var]/df_sofipo_captacion_pivot['Captación tradicional'])*100, 2)
 
     df_sofipo_captacion_pivot['sofipo'] = sofipo
+    df_sofipo_captacion_pivot['fintech'] = fintech
 
     df_captacion = pd.concat([df_captacion, df_sofipo_captacion_pivot], ignore_index=True)
 
@@ -768,7 +806,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_prestamosb_pivot[df_sofipo_prestamosb_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_prestamosb_pivot[df_sofipo_prestamosb_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_prestamosb_pivot[f'{var}_i_b100'] = round((df_sofipo_prestamosb_pivot[var]/base)*100, 2)
         df_sofipo_prestamosb_pivot[f'{var}_pct_YoY'] = round(df_sofipo_prestamosb_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -780,6 +818,7 @@ for sofipo in sofipos_nam:
         df_sofipo_prestamosb_pivot[f'{var}_w'] = round((df_sofipo_prestamosb_pivot[var]/df_sofipo_prestamosb_pivot['Préstamos bancarios y de otros organismos'])*100, 2)
 
     df_sofipo_prestamosb_pivot['sofipo'] = sofipo
+    df_sofipo_prestamosb_pivot['fintech'] = fintech
 
     df_prestamosb = pd.concat([df_prestamosb, df_sofipo_prestamosb_pivot], ignore_index=True)
 
@@ -803,7 +842,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_CC_pivot[df_sofipo_CC_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_CC_pivot[df_sofipo_CC_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_CC_pivot[f'{var}_i_b100'] = round((df_sofipo_CC_pivot[var]/base)*100, 2)
         df_sofipo_CC_pivot[f'{var}_pct_YoY'] = round(df_sofipo_CC_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -815,6 +854,7 @@ for sofipo in sofipos_nam:
         df_sofipo_CC_pivot[f'{var}_w'] = round((df_sofipo_CC_pivot[var]/df_sofipo_CC_pivot['Capital contable'])*100, 2)
 
     df_sofipo_CC_pivot['sofipo'] = sofipo
+    df_sofipo_CC_pivot['fintech'] = fintech
 
     df_CC = pd.concat([df_CC, df_sofipo_CC_pivot], ignore_index=True)
 
@@ -835,7 +875,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_CG_pivot[df_sofipo_CG_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_CG_pivot[df_sofipo_CG_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_CG_pivot[f'{var}_i_b100'] = round((df_sofipo_CG_pivot[var]/base)*100, 2)
         df_sofipo_CG_pivot[f'{var}_pct_YoY'] = round(df_sofipo_CG_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -847,6 +887,7 @@ for sofipo in sofipos_nam:
         df_sofipo_CG_pivot[f'{var}_w'] = round((df_sofipo_CG_pivot[var]/df_sofipo_CG_pivot['Capital ganado'])*100, 2)
 
     df_sofipo_CG_pivot['sofipo'] = sofipo
+    df_sofipo_CG_pivot['fintech'] = fintech
 
     df_CG = pd.concat([df_CG, df_sofipo_CG_pivot], ignore_index=True)
 
@@ -867,7 +908,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_racum_pivot[df_sofipo_racum_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_racum_pivot[df_sofipo_racum_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_racum_pivot[f'{var}_i_b100'] = round((df_sofipo_racum_pivot[var]/base)*100, 2)
         df_sofipo_racum_pivot[f'{var}_pct_YoY'] = round(df_sofipo_racum_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -879,6 +920,7 @@ for sofipo in sofipos_nam:
         df_sofipo_racum_pivot[f'{var}_w'] = round((df_sofipo_racum_pivot[var]/df_sofipo_racum_pivot['Resultados acumulados'])*100, 2)
 
     df_sofipo_racum_pivot['sofipo'] = sofipo
+    df_sofipo_racum_pivot['fintech'] = fintech
 
     df_racum = pd.concat([df_racum, df_sofipo_racum_pivot], ignore_index=True)
 
@@ -917,7 +959,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_RE_pivot[df_sofipo_RE_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_RE_pivot[df_sofipo_RE_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_RE_pivot[f'{var}_i_b100'] = round((df_sofipo_RE_pivot[var]/base)*100, 2)
         df_sofipo_RE_pivot[f'{var}_pct_YoY'] = round(df_sofipo_RE_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -929,6 +971,7 @@ for sofipo in sofipos_nam:
         df_sofipo_RE_pivot[f'{var}_w'] = round((df_sofipo_RE_pivot[var]/df_sofipo_RE_pivot['Ingresos por intereses'])*100, 2)
 
     df_sofipo_RE_pivot['sofipo'] = sofipo
+    df_sofipo_RE_pivot['fintech'] = fintech
 
     df_RE = pd.concat([df_RE, df_sofipo_RE_pivot], ignore_index=True)
 
@@ -967,7 +1010,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_ingint_pivot[df_sofipo_ingint_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_ingint_pivot[df_sofipo_ingint_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_ingint_pivot[f'{var}_i_b100'] = round((df_sofipo_ingint_pivot[var]/base)*100, 2)
         df_sofipo_ingint_pivot[f'{var}_pct_YoY'] = round(df_sofipo_ingint_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -979,6 +1022,7 @@ for sofipo in sofipos_nam:
         df_sofipo_ingint_pivot[f'{var}_w'] = round((df_sofipo_ingint_pivot[var]/df_sofipo_ingint_pivot['Ingresos por intereses'])*100, 2)
 
     df_sofipo_ingint_pivot['sofipo'] = sofipo
+    df_sofipo_ingint_pivot['fintech'] = fintech
 
     df_ingint = pd.concat([df_ingint, df_sofipo_ingint_pivot], ignore_index=True)
 
@@ -999,7 +1043,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_intE1E2_pivot[df_sofipo_intE1E2_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_intE1E2_pivot[df_sofipo_intE1E2_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_intE1E2_pivot[f'{var}_i_b100'] = round((df_sofipo_intE1E2_pivot[var]/base)*100, 2)
         df_sofipo_intE1E2_pivot[f'{var}_pct_YoY'] = round(df_sofipo_intE1E2_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -1011,6 +1055,7 @@ for sofipo in sofipos_nam:
         df_sofipo_intE1E2_pivot[f'{var}_w'] = round((df_sofipo_intE1E2_pivot[var]/df_sofipo_intE1E2_pivot['Intereses de cartera de crédito con riesgo de crédito (E1 + E2)'])*100, 2)
 
     df_sofipo_intE1E2_pivot['sofipo'] = sofipo
+    df_sofipo_intE1E2_pivot['fintech'] = fintech
 
     df_intE1E2 = pd.concat([df_intE1E2, df_sofipo_intE1E2_pivot], ignore_index=True)
 
@@ -1031,7 +1076,7 @@ for sofipo in sofipos_nam:
     #### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_intE3_pivot[df_sofipo_intE3_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_intE3_pivot[df_sofipo_intE3_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_intE3_pivot[f'{var}_i_b100'] = round((df_sofipo_intE3_pivot[var]/base)*100, 2)
         df_sofipo_intE3_pivot[f'{var}_pct_YoY'] = round(df_sofipo_intE3_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -1043,6 +1088,7 @@ for sofipo in sofipos_nam:
         df_sofipo_intE3_pivot[f'{var}_w'] = round((df_sofipo_intE3_pivot[var]/df_sofipo_intE3_pivot['Intereses de cartera de crédito con riesgo de crédito etapa 3'])*100, 2)
 
     df_sofipo_intE3_pivot['sofipo'] = sofipo
+    df_sofipo_intE3_pivot['fintech'] = fintech
 
     df_intE3 = pd.concat([df_intE3, df_sofipo_intE3_pivot], ignore_index=True)
 
@@ -1068,6 +1114,7 @@ for sofipo in sofipos_nam:
         df_sofipo_ind_pivot[f'{var}_pct_YoY'] = round(df_sofipo_ind_pivot[var].pct_change(periods=12)*100, 2)
 
     df_sofipo_ind_pivot['sofipo'] = sofipo
+    df_sofipo_ind_pivot['fintech'] = fintech
 
     df_ind = pd.concat([df_ind, df_sofipo_ind_pivot], ignore_index=True)
 
@@ -1089,7 +1136,7 @@ for sofipo in sofipos_nam:
     ### Indicador Base 07-2022 == 100
     for var in vars:
 
-        base = df_sofipo_castigo_pivot[df_sofipo_castigo_pivot['periodo'] == '2022-07'][var].iat[0]
+        base = df_sofipo_castigo_pivot[df_sofipo_castigo_pivot['periodo'] == '2023-01'][var].iat[0]
         df_sofipo_castigo_pivot[f'{var}_i_b100'] = round((df_sofipo_castigo_pivot[var]/base)*100, 2)
         df_sofipo_castigo_pivot[f'{var}_pct_YoY'] = round(df_sofipo_castigo_pivot[var].pct_change(periods=12)*100, 2)
 
@@ -1101,11 +1148,11 @@ for sofipo in sofipos_nam:
         df_sofipo_castigo_pivot[f'{var}_w'] = round((df_sofipo_castigo_pivot[var]/df_sofipo_castigo_pivot['Castigos, quitas y condonaciones (Suma 12 meses)'])*100, 2)
 
     df_sofipo_castigo_pivot['sofipo'] = sofipo
+    df_sofipo_castigo_pivot['fintech'] = fintech
 
     df_castigo = pd.concat([df_castigo, df_sofipo_castigo_pivot])
 
     print(f'Se agregó la información de Castigos, quitas y condonaciones de la SOFIPO: {sofipo}')
-
 
 dict_sofipos = {
     'Inf_cartera' : df_cartera,
@@ -1125,5 +1172,121 @@ dict_sofipos = {
     'Castigos' : df_castigo
 }
 
-with open('dict_sofipos.pkl', 'wb') as f:
-    pickle.dump(dict_sofipos, f)
+df_llaves = pd.DataFrame({
+    'llaves' : dict_sofipos.keys(),
+    'v_clave' : ['Cartera de crédito', 
+                 'Cartera de crédito con riesgo de crédito (E1 + E2)',
+                 'Cartera de crédito con riesgo de crédito etapa 3',
+                 'Estimación preventiva para riesgos crediticios',
+                 'Captación tradicional',
+                 'Préstamos bancarios y de otros organismos',
+                 'Capital contable',
+                 'Capital ganado',
+                 'Resultados acumulados',
+                 'Ingresos por intereses',
+                 'Ingresos por intereses',
+                 'Intereses de cartera de crédito con riesgo de crédito (E1 + E2)',
+                 'Intereses de cartera de crédito con riesgo de crédito etapa 3',
+                 '',
+                 'Castigos, quitas y condonaciones (Suma 12 meses)'
+                 ],
+
+    'pesos' : ['SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'SI',
+               'NO',
+               'SI'
+               ]
+               })
+# Algoritmo para agrupar fintech
+llaves = dict_sofipos.keys()
+
+dict_sofipos_fintech = {}
+
+for llave in llaves:
+
+    # Variable clave
+    v_clave = df_llaves[df_llaves['llaves'] == llave]['v_clave'].iat[0]
+    # Pesos
+    peso = df_llaves[df_llaves['llaves'] == llave]['pesos'].iat[0]
+
+    df = dict_sofipos[llave]
+    df_no = df[df['fintech'] == 'NO']
+    df_si = df[df['fintech'] == 'SI']
+
+    terminaciones = ['_i_b100', '_pct_YoY', '_w']
+
+    columnas = [c for terminacion in terminaciones for c in df_si.columns if c.endswith(terminacion)]
+    columnas = columnas + ['sofipo', 'fintech']
+    variables = list(set(df_si.columns.to_list()) - set(columnas))
+
+    df_si_s = df_si[variables]
+
+    df_si_g = df_si_s.groupby('periodo').agg('sum').reset_index()
+
+    #### Indicador Base 07-2022 == 100
+    variables = df_si_g.columns.to_list()
+    variables = variables[1:]
+
+    if peso == 'SI':
+
+        for var in variables:
+
+            df_si_g[var] = pd.to_numeric(df_si_g[var], errors='coerce')
+
+            base = df_si_g[df_si_g['periodo'] == '2023-01'][var].iat[0]
+            
+            if base == 0: 
+
+                df_si_g[f'{var}_i_b100'] = 0
+
+                try:
+                    df_si_g[f'{var}_pct_YoY'] = round(df_si_g[var].pct_change(periods=12)*100, 2)
+                    
+                except Exception as e:
+                    df_si_g[f'{var}_pct_YoY'] = 0
+
+            else:
+                
+                df_si_g[f'{var}_i_b100'] = round((df_si_g[var]/base)*100, 2)
+                df_si_g[f'{var}_pct_YoY'] = round(df_si_g[var].pct_change(periods=12)*100, 2)
+        
+        variables_s = list(set(variables) -set([v_clave]))
+        
+        for var in variables_s:
+
+            df_si_g[f'{var}_w'] = round((df_si_g[var]/df_si_g[v_clave])*100, 2)
+
+    if peso == 'NO':
+
+        for var in variables:
+
+            df_si_g[f'{var}_pct_YoY'] = round(df_si_g[var].pct_change(periods=12)*100, 2)
+
+    df_si_g['sofipo'] = 'Fintech'
+    df_si_g['fintech'] = 'SI'
+
+    var_ord = df_no.columns.to_list()
+    df_si_g = df_si_g[var_ord]
+
+    df = pd.concat([df_no, df_si_g], ignore_index=True)
+    dict_sofipos_fintech[llave] = df
+    
+
+dict_sofipos_sector = {
+    'original' : dict_sofipos,
+    'fintech' : dict_sofipos_fintech
+}
+
+with open('dict_sofipos_sector.pkl', 'wb') as f:
+    pickle.dump(dict_sofipos_sector, f)
