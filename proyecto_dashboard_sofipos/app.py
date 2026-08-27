@@ -1,13 +1,14 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Dashboard Sector SOFIPOS - Fincomun",
+    page_title="Dashboard Sector SOFIPOS - Fincomún",
     page_icon="📊",
     layout="wide"
 )
 
-st.title("Dashboard Sector SOFIPOS - Fincomún")
-st.markdown("""
-Panel de seguimiento del sector SOFIPOS. Usa el menú lateral para navegar
-entre las distintas vistas de cartera.
-""")
+pg = st.navigation([
+    st.Page("pages/1_Cartera_de_credito.py",
+             title="Información de Cartera", icon="📈")
+])
+
+pg.run()

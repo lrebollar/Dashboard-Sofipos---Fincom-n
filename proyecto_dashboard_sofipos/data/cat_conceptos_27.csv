@@ -1,0 +1,168 @@
+"sector","idtema","idconcepto","descripcion","nivel","indicador","orden"
+27,1,27100001,"Activo",1,0,1
+27,1,27100080,"Efectivo y equivalentes de efectivo",2,0,2
+27,1,27100081,"Inversiones en instrumentos financieros",2,0,3
+27,1,27100079,"Deudores por reporto",2,0,4
+27,1,27100008,"Cartera de crédito",2,0,5
+27,1,27100009,"Créditos comerciales",3,0,6
+27,1,27100010,"Créditos consumo",3,0,7
+27,1,27100011,"Créditos vivienda",3,0,8
+27,1,27100037,"Cartera de crédito con riesgo de crédito (E1 + E2)",4,0,9
+27,1,27100038,"Créditos comerciales (E1 + E2)",5,0,10
+27,1,27100039,"Créditos consumo (E1 + E2)",5,0,11
+27,1,27100040,"Créditos vivienda (E1 + E2)",5,0,12
+27,1,27100004,"Cartera de crédito con riesgo de crédito etapa 3",4,0,13
+27,1,27100005,"Créditos comerciales",5,0,14
+27,1,27100006,"Créditos consumo",5,0,15
+27,1,27100007,"Créditos vivienda",5,0,16
+27,1,27100136,"Cartera de crédito valuada a valor razonable",4,0,17
+27,1,27100137,"Créditos comerciales",5,0,18
+27,1,27100138,"Créditos consumo",5,0,19
+27,1,27100139,"Créditos vivienda",5,0,20
+27,1,27100202,"Partidas diferidas",2,0,21
+27,1,27100012,"Estimación preventiva para riesgos crediticios",2,0,22
+27,1,27100013,"Créditos comerciales",3,0,23
+27,1,27100014,"Créditos consumo",3,0,24
+27,1,27100015,"Créditos vivienda",3,0,25
+27,1,27100148,"Estimaciones preventivas para riesgos crediticios adicional",3,0,26
+27,1,27100149,"Beneficios por recibir en operaciones de bursatilización",2,0,27
+27,1,27100150,"Otras cuentas por cobrar",2,0,28
+27,1,27100151,"Estimación de pérdidas crediticias esperadas",3,0,29
+27,1,27100152,"Bienes adjudicados",2,0,30
+27,1,27100153,"Estimación de bienes adjudicados",3,0,31
+27,1,27100203,"Activos de larga duración mantenidos para la venta o para distribuir a los accionistas",2,0,32
+27,1,27100204,"Pagos anticipados y otros activos",2,0,33
+27,1,27100154,"Propiedades, mobiliario y equipo",2,0,34
+27,1,27100196,"Depreciación acumulada de propiedades, mobiliario y equipo",3,0,35
+27,1,27100205,"Activos por derechos de uso de propiedades, mobiliario y equipo (neto)",2,0,36
+27,1,27100155,"Inversiones permanentes",2,0,37
+27,1,27100156,"Activo por impuestos a la utilidad diferidos",2,0,38
+27,1,27100206,"Activos intangibles (neto)",2,0,39
+27,1,27100157,"Otros activos",2,0,40
+27,1,27100053,"Pasivo",1,0,41
+27,1,27100044,"Captación tradicional",2,0,42
+27,1,27100028,"Depósitos de exigibilidad inmediata",3,0,43
+27,1,27100029,"Depósitos a plazo",3,0,44
+27,1,27100158,"Títulos de crédito emitidos",3,0,45
+27,1,27100083,"Cuenta global de captación sin movimientos",3,0,46
+27,1,27100030,"Préstamos bancarios y de otros organismos",2,0,47
+27,1,27100159,"De corto plazo",3,0,48
+27,1,27100160,"De largo plazo",3,0,49
+27,1,27100161,"Colaterales vendidos o dados en garantía",2,0,50
+27,1,27100162,"Otras cuentas por pagar",2,0,51
+27,1,27100163,"Obligaciones en operaciones de bursatilización",2,0,52
+27,1,27100207,"Pasivo por arrendamiento",2,0,53
+27,1,27100208,"Pasivo por impuestos a la utilidad",2,0,54
+27,1,27100209,"Pasivo por beneficios a los empleados",2,0,55
+27,1,27100164,"Créditos diferidos y cobros anticipados",2,0,56
+27,1,27100210,"Otros Pasivos",2,0,57
+27,1,27100002,"Capital contable",1,0,58
+27,1,27100084,"Capital contribuido",2,0,59
+27,1,27100086,"Capital ganado",2,0,60
+27,1,27100165,"Reservas de capital",3,0,61
+27,1,27100166,"Incremento por actualización de reservas de capital ",3,0,62
+27,1,27100211,"Resultados acumulados",3,0,63
+27,1,27100167,"Resultado de ejercicios anteriores",4,0,64
+27,1,27100168,"Incremento por actualización del resultado de ejercicios anteriores",4,0,65
+27,1,27100198,"Resultado Neto",4,0,66
+27,1,27100212,"Otros resultados integrales",3,0,67
+27,1,27100082,"Cuentas de orden",1,0,68
+27,1,27100175,"Avales otorgados",2,0,69
+27,1,27100176,"Activos y pasivos contingentes",2,0,70
+27,1,27100177,"Compromisos crediticios",2,0,71
+27,1,27100178,"Bienes en fideicomiso o mandato",2,0,72
+27,1,27100179,"Bienes en custodia o en administración",2,0,73
+27,1,27100180,"Colaterales recibidos por la entidad",2,0,74
+27,1,27100181,"Colaterales recibidos y vendidos o entregados en garantía por la entidad",2,0,75
+27,1,27100182,"Intereses devengados no cobrados derivados de cartera de crédito con riesgo de crédito etapa 3",2,0,76
+27,1,27100183,"Otras cuentas de registro",2,0,77
+27,2,27100041,"Ingresos por intereses",1,0,78
+27,2,27100031,"Intereses de efectivo y equivalentes de efectivo",2,0,79
+27,2,27100184,"Intereses y rendimientos a favor provenientes de inversiones en instrumentos financieros",2,0,80
+27,2,27100185,"Intereses y rendimientos a favor en operaciones de reporto",2,0,81
+27,2,27100033,"Intereses de cartera de crédito con riesgo de crédito (E1 + E2)",2,0,82
+27,2,27100034,"Créditos comerciales (E1 + E2)",3,0,83
+27,2,27100035,"Créditos consumo (E1 + E2)",3,0,84
+27,2,27100036,"Créditos vivienda (E1 + E2)",3,0,85
+27,2,27100140,"Intereses de cartera de crédito con riesgo de crédito etapa 3",2,0,86
+27,2,27100141,"Créditos comerciales",3,0,87
+27,2,27100142,"Créditos consumo",3,0,88
+27,2,27100143,"Créditos vivienda",3,0,89
+27,2,27100144,"Ingresos por cartera de crédito valuada a valor razonable",2,0,90
+27,2,27100145,"Créditos comerciales",3,0,91
+27,2,27100146,"Créditos consumo",3,0,92
+27,2,27100147,"Créditos vivienda",3,0,93
+27,2,27100213,"Intereses por derechos de cobro adquiridos",2,0,94
+27,2,27100186,"Comisiones por el otorgamiento del crédito",2,0,95
+27,2,27100214,"Efecto por renegociación de cartera de crédito",2,0,96
+27,2,27100215,"Primas por colocación de deuda",2,0,97
+27,2,27100216,"Dividendos de instrumentos financieros que califican como instrumentos financieros de capital",2,0,98
+27,2,27100187,"Utilidad por valorización",2,0,99
+27,2,27100217,"Incremento por actualización de ingresos por intereses ",2,0,100
+27,2,27100023,"Gastos por intereses",1,0,101
+27,2,27100025,"Intereses por depósitos de exigibilidad inmediata",2,0,102
+27,2,27100026,"Intereses por depósitos a plazo",2,0,103
+27,2,27100188,"Intereses por títulos de crédito emitidos",2,0,104
+27,2,27100027,"Intereses por préstamos bancarios y de otros organismos",2,0,105
+27,2,27100189,"Descuentos por colocación de deuda",2,0,106
+27,2,27100190,"Gastos de emisión por colocación de deuda",2,0,107
+27,2,27100218,"Intereses, costos de transacción y descuentos a cargo por emisión de instrumentos financieros que califican como pasivo",2,0,108
+27,2,27100219,"Premios pagados por la redención anticipada de instrumentos financieros que califican como pasivo",2,0,109
+27,2,27100220,"Efecto por renegociación de cartera de crédito",2,0,110
+27,2,27100191,"Costos y gastos asociados con el otorgamiento del crédito",2,0,111
+27,2,27100192,"Pérdida por valorización",2,0,112
+27,2,27100221,"Intereses a cargo asociados con la cuenta global de captación sin movimientos",2,0,113
+27,2,27100222,"Intereses sobre pasivos por arrendamiento",2,0,114
+27,2,27100223,"Efecto financiero de provisiones",2,0,115
+27,2,27100224,"Incremento por actualización de gastos por intereses ",2,0,116
+27,2,27100043,"Margen financiero",1,0,117
+27,2,27100067,"Estimación preventiva para riesgos crediticios",2,0,118
+27,2,27100017,"Margen financiero ajustado por riesgos crediticios",1,0,119
+27,2,27100068,"Comisiones y tarifas cobradas",2,0,120
+27,2,27100069,"Comisiones y tarifas pagadas",2,0,121
+27,2,27100071,"Resultado por intermediación",2,0,122
+27,2,27100072,"Otros ingresos (egresos) de la operación",2,0,123
+27,2,27100016,"Gastos de administración y promoción",2,0,124
+27,2,27100042,"Resultado de la operación",1,0,125
+27,2,27100092,"Participación en el resultado neto de otras entidades",2,0,126
+27,2,27100101,"Resultado antes de impuestos a la utilidad",1,0,127
+27,2,27100093,"Resultado por operaciones continuas",1,0,128
+27,2,27100195,"Operaciones discontinuadas",2,0,129
+27,2,27100003,"Resultado neto",1,0,130
+27,2,27100225,"Otros resultados integrales",1,0,131
+27,2,27100226,"Participación en ORI de otras entidades",1,0,132
+27,2,27100227,"RESULTADO INTEGRAL",1,0,133
+27,5,27200001,"ROA",1,1,134
+27,5,27200002,"ROE",1,1,135
+27,5,27200113,"Liquidez",1,1,136
+27,5,27200004,"MIN",1,1,137
+27,5,27200114,"GAP / Activo",1,1,138
+27,5,27200021,"Capital contable / Activo",1,1,139
+27,5,27200005,"IMOR cartera de crédito",1,1,140
+27,5,27200006,"IMOR comercial",2,1,141
+27,5,27200007,"IMOR consumo",2,1,142
+27,5,27200008,"IMOR vivienda",2,1,143
+27,5,27200009,"IMORA cartera de crédito",1,1,144
+27,5,27200010,"IMORA comercial",2,1,145
+27,5,27200011,"IMORA consumo",2,1,146
+27,5,27200012,"IMORA vivienda",2,1,147
+27,5,27200013,"ICOR cartera de crédito",1,1,148
+27,5,27200014,"ICOR comercial",2,1,149
+27,5,27200015,"ICOR consumo",2,1,150
+27,5,27200016,"ICOR vivienda",2,1,151
+27,5,27200017,"EPRC / Cartera de crédito",1,1,152
+27,5,27200018,"EPRC / Cartera comercial",2,1,153
+27,5,27200019,"EPRC / Cartera consumo",2,1,154
+27,5,27200020,"EPRC / Cartera vivienda",2,1,155
+27,5,27200115,"Tasa de interés implícita (TII) cartera de crédito E1 + E2",1,1,156
+27,5,27200116,"TII comercial E1 + E2",2,1,157
+27,5,27200117,"TII consumo E1 + E2",2,1,158
+27,5,27200118,"TII vivienda E1 + E2",2,1,159
+27,5,27200119,"Tasa de interés implícita (TII) pasiva",1,1,160
+27,5,27200120,"TII depósitos de exigibilidad inmediata",2,1,161
+27,5,27200121,"TII depósitos a plazo",2,1,162
+27,5,27200122,"TII préstamos bancarios",2,1,163
+27,8,27200085,"Castigos, quitas y condonaciones (Suma 12 meses)",1,0,164
+27,8,27200086,"Créditos comerciales",2,0,165
+27,8,27200087,"Créditos consumo",2,0,166
+27,8,27200088,"Créditos vivienda",2,0,167
