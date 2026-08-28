@@ -159,11 +159,6 @@ panel_segmento_Ind.update_yaxes(side="right", showticklabels=True,
                     title_text=titulo_eje_pch,
                     row=2, col=2)
 
-# Línea horizontal en 100
-panel_segmento_Ind.add_hline(y=100, line_dash="dash", line_color="black", row=1, col=1)
-panel_segmento_Ind.add_hline(y=100, line_dash="dash", line_color="black", row=2, col=1)
-panel_segmento_Ind.add_hline(y=0, line_dash="dash", line_color="black", row=1, col=2)
-panel_segmento_Ind.add_hline(y=0, line_dash="dash", line_color="black", row=2, col=2)
 
 # Layout general del panel
 panel_segmento_Ind.update_layout(
