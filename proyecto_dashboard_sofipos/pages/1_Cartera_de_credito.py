@@ -721,7 +721,7 @@ periodo_cartera_E3, df_filtrado_cartera_E3 = desl_2var(df = df_cartera_E3,
                                  label1= titulo_eje_i100,
                                  var2= var_cartera_E3_pch,
                                  label2= titulo_eje_pch,
-                                 key_prefix="cartera_total"
+                                 key_prefix="cartera_E3_total"
                                  )
 
 #################################################################################
@@ -895,7 +895,7 @@ periodo_segmento_cartera_E3, df_filtrado_segmento_cartera_E3 = desl_2var(df = df
                                  label1= titulo_eje_i100,
                                  var2= var_segmento_E3_pch,
                                  label2= titulo_eje_pch,
-                                 key_prefix=f"segmento_{segmento}"
+                                 key_prefix=f"segmento_E3_{segmento}"
                                  )
 
 #################################################################################
@@ -1044,6 +1044,8 @@ st.plotly_chart(panel_segmento_cartera_E3, use_container_width=True)
 #################################################################################
 #### Castigos, quitas y condonaciones (Suma 12 meses) ####
 #################################################################################
+st.subheader("Castigos, quitas y condonaciones (Suma 12 meses)")
+
 ## Cartera de crédito 
 df_castigo = dict_sofipos['fintech']['Castigos']
 ### Formato de fecha
@@ -1237,7 +1239,7 @@ periodo_segmento_castigo, df_filtrado_segmento_castigo = desl_2var(df = df_casti
                                  label1= titulo_eje_i100,
                                  var2= var_segmento_castigo_pch,
                                  label2= titulo_eje_pch,
-                                 key_prefix=f"segmento_{segmento}"
+                                 key_prefix=f"segmento_castigo_{segmento}"
                                  )
 
 #################################################################################
