@@ -879,7 +879,7 @@ segmento = st.selectbox("Segmento de cartera con riesgo de crédito etapa 3",
                         options= segmentos)
 
 st.subheader(f"{segmento}")
-
+df_cartera_E3.columns.to_list()
 #################################################################################
 #### Deslizantes - Segmentos de Cartera con Cartera de Crédito con riesgo de crédito E3 ####
 #################################################################################

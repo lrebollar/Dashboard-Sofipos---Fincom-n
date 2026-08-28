@@ -27,43 +27,47 @@ def desl_periodo(df : pd.DataFrame,
 
     return periodo, df_filtrado
 
-def desl_2var(df : pd.DataFrame,
-              var1 : str,
-              label1 : str,
-              var2 : str,
-              label2 : str,
+def desl_2var(df: pd.DataFrame,
+              var1: str,
+              var2: str,
+              label1: str = None,
+              label2: str = None,
               key_prefix: str = ""):
 
+    label1 = label1 or var1
+    label2 = label2 or var2
+
     periodo, df_filtrado = desl_periodo(df, key=f"{key_prefix}_periodo")
+
+    # Reemplaza inf/-inf por NaN para que no rompan min/max
+    df_filtrado = df_filtrado.replace([np.inf, -np.inf], np.nan)
 
     col1, col2 = st.columns(2)
 
     with col1:
         rango_i100 = st.slider(
             label1,
-            min_value=float(df[var1].min()),
-            max_value=float(df[var1].max()),
-            value=(float(df[var1].min()), 
-                float(df[var1].max())),
+            min_value=float(df_filtrado[var1].min()),
+            max_value=float(df_filtrado[var1].max()),
+            value=(float(df_filtrado[var1].min()), float(df_filtrado[var1].max())),
             key=f"{key_prefix}_{var1}"
         )
 
     with col2:
         rango_pch = st.slider(
             label2,
-            min_value=float(df[var2].min()),
-            max_value=float(df[var2].max()),
-            value=(float(df[var2].min()), 
-                float(df[var2].max())),
+            min_value=float(df_filtrado[var2].min()),
+            max_value=float(df_filtrado[var2].max()),
+            value=(float(df_filtrado[var2].min()), float(df_filtrado[var2].max())),
             key=f"{key_prefix}_{var2}"
         )
 
     df_filtrado = df_filtrado[
         (df_filtrado[var1].between(*rango_i100)) &
         (df_filtrado[var2].between(*rango_pch))
-        ]
+    ]
 
-    return  periodo, df_filtrado
+    return periodo, df_filtrado
 
 def plot_st(df : pd.DataFrame, 
             serie : str, 
