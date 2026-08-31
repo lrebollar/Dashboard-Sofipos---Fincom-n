@@ -2,7 +2,13 @@ import pandas as pd
 import numpy as np
 import os
 import streamlit as st
+import plotly.express as px
 import plotly.graph_objects as go
+import pickle
+
+## Llamado de base global SOFIPO
+with open('dict_sofipos_sector.pkl', 'rb') as archivo:
+    dict_sofipos = pickle.load(archivo)
 
 ## Llamado de datos primarios
 dir_sofipos = r'C:\Users\lrebollar.e\OneDrive - fincomun.com.mx\Documentos\GitHub\Dashboard Sofipos - Fincomún\cat_instituciones_27.csv'
@@ -79,3 +85,131 @@ fig.update_xaxes(range=[0, max(valores)*1.15])
 fig.update_yaxes(showline=False, showgrid=False, zeroline=False)
 
 st.plotly_chart(fig, use_container_width=False)
+
+#################################################################################################################
+####### Función para crear gráfico de series de tiempo #######
+#################################################################################################################
+def plot_ln(df : pd.DataFrame, 
+            serie : str, 
+            titulo: str, 
+            categorias : str,
+            sofipos : list,
+            log : bool,
+            doble_eje : bool = True,
+            eje : str | None = None,
+            inicio : str | None = None,
+            mostrar : bool = True):
+
+        import pandas as pd
+        import numpy as np
+        import plotly.express as px
+        import plotly.graph_objects as go
+        from plotly.subplots import make_subplots
+
+        # Define el inicio de las series
+        if pd.isna(inicio) == False:
+
+            df = df[df['periodo'] >= inicio] 
+
+        # Asegura orden cronológico para que el "último valor" sea correcto
+        df = df.sort_values('periodo')
+
+        if log == True:
+            # Convierte a logaritmo e la serie
+            df[serie] = df[serie].astype(float)
+            df[f'{serie}_ln'] = np.log(df[serie])
+        
+            # Selecciona las sofipos 
+            df = df[df['sofipo'].isin(sofipos)]
+
+            y_col = f'{serie}_ln'
+
+        else:
+            # Selecciona las sofipos 
+            df = df[df['sofipo'].isin(sofipos)]
+            y_col = serie
+        
+        fig_px = px.line(
+            df, 
+            x="periodo", 
+            y=y_col, 
+            title= titulo,
+            color=categorias)
+
+        if doble_eje:
+            # Construye la figura con doble eje
+            fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+            for trace in fig_px.data:
+                es_total = trace.name in ['Total SOFIPOS', 'Fintech']
+                fig.add_trace(trace, secondary_y=not es_total)
+
+            fig.update_layout(
+                title=titulo,
+                xaxis=dict(
+                    title=None,
+                    tickformat="%Y",
+                    dtick="M12",
+                    hoverformat="%Y-%m")
+                )
+            
+            fig.update_yaxes(title_text="Sector SOFIPOS", secondary_y=False)
+            fig.update_yaxes(title_text="Otras SOFIPOS", secondary_y=True)
+
+            # Líneas de referencia en y = 100 para cada eje
+            fig.add_hline(y=100, line_dash="dash", line_color="black", secondary_y=False)
+            fig.add_hline(y=100, line_dash="dash", line_color="darkblue", secondary_y=True)
+
+        else:
+            # Figura de un solo eje
+            fig = fig_px
+
+            fig.update_layout(
+                title=titulo,
+                xaxis=dict(
+                    title=None,
+                    tickformat="%Y",
+                    dtick="M12",
+                    hoverformat="%Y-%m")
+                )
+
+            fig.update_yaxes(
+                side="right",
+                showticklabels=True,
+                title_text= eje
+            )
+
+            # Línea de referencia en y = 100
+            fig.add_hline(y=100, line_dash="dash", line_color="black")
+
+        # Leyenda dentro del gráfico, esquina superior izquierda
+        fig.update_layout(
+            legend=dict(
+                title=dict(text="SOFIPO"),
+                x=0.01,
+                y=0.99,
+                xanchor="left",
+                yanchor="top",
+                bgcolor="rgba(255,255,255,0.6)"
+            )
+        )
+
+        # Agrega el último valor y fecha a la leyenda de cada serie
+        def actualizar_leyenda(trace):
+            x_vals = trace.x
+            y_vals = trace.y
+
+            if len(x_vals) == 0:
+                return
+
+            ultimo_x = pd.to_datetime(x_vals[-1]).strftime('%Y-%m')
+            ultimo_y = y_vals[-1]
+
+            trace.update(name=f"{trace.name} | {ultimo_y:.2f} ({ultimo_x})")
+
+        fig.for_each_trace(actualizar_leyenda)
+
+        if mostrar:
+            fig.show()
+
+        return fig

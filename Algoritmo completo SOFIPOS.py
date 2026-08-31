@@ -1172,9 +1172,11 @@ dict_sofipos = {
     'Castigos' : df_castigo
 }
 
+dict_sofipos['Ind_financieros']
+
 df_llaves = pd.DataFrame({
     'llaves' : dict_sofipos.keys(),
-    'v_clave' : ['Cartera de crédito', 
+    'v_clave' : ['Cartera de crédito',  # Son las variables que se utilizan para ponderar el peso del resto de variables
                  'Cartera de crédito con riesgo de crédito (E1 + E2)',
                  'Cartera de crédito con riesgo de crédito etapa 3',
                  'Estimación preventiva para riesgos crediticios',
@@ -1222,7 +1224,7 @@ for llave in llaves:
 
     df = dict_sofipos[llave]
     df_no = df[df['fintech'] == 'NO']
-    df_si = df[df['fintech'] == 'SI']
+    df_si = df[df['fintech'] == 'SI'] # Son SOFIPOS FINTECH
 
     terminaciones = ['_i_b100', '_pct_YoY', '_w']
 
@@ -1232,13 +1234,13 @@ for llave in llaves:
 
     df_si_s = df_si[variables]
 
-    df_si_g = df_si_s.groupby('periodo').agg('sum').reset_index()
-
-    #### Indicador Base 07-2022 == 100
-    variables = df_si_g.columns.to_list()
-    variables = variables[1:]
-
     if peso == 'SI':
+
+        df_si_g = df_si_s.groupby('periodo').agg('sum').reset_index() #No sirve para indicadores
+        
+        #### Indicador Base 07-2022 == 100
+        variables = df_si_g.columns.to_list()
+        variables = variables[1:]
 
         for var in variables:
 
@@ -1269,6 +1271,10 @@ for llave in llaves:
 
     if peso == 'NO':
 
+        df_si_g = df_si_s.groupby('periodo').agg('mean').reset_index()
+        variables = df_si_g.columns.to_list()
+        variables = variables[1:]
+
         for var in variables:
 
             df_si_g[f'{var}_pct_YoY'] = round(df_si_g[var].pct_change(periods=12)*100, 2)
@@ -1280,6 +1286,7 @@ for llave in llaves:
     df_si_g = df_si_g[var_ord]
 
     df = pd.concat([df_no, df_si_g], ignore_index=True)
+
     dict_sofipos_fintech[llave] = df
     
 
