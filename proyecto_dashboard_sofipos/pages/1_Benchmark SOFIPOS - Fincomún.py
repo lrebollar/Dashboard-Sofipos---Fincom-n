@@ -7,6 +7,7 @@ from utils.f_graficos import plot_st, desl_2var
 import pickle
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import plotly.express as px
 
 #### Setup dashboard ####
 st.set_page_config(layout="wide")
