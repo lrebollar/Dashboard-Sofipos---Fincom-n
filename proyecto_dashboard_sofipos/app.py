@@ -13,13 +13,13 @@ pg = st.navigation([
                 title="Benchmark SOFIPOS - Fincomún", icon="📈"),
     st.Page("pages/2_Cartera_de_credito.py",
              title="Información de Cartera de Crédito", icon="📈"),
-    st.Page("pages/3_EPRC.py",
+    st.Page("pages/4_EPRC.py",
                 title="Estimaciones Preventivas de Riesgo Crediticio", icon="📈"),
-    st.Page("pages/4_Captacion.py",
+    st.Page("pages/3_Captacion.py",
                 title="Captación tradicional", icon="📈"),
-    st.Page("pages/5_Ingresos_por_intereses.py",
+    st.Page("pages/6_Ingresos_por_intereses.py",
                 title="Ingresos por intereses", icon="📈"),
-    st.Page("pages/6_Indicadores_financieros.py",
+    st.Page("pages/5_Indicadores_financieros.py",
                 title="Indicadores Financieros", icon="📈")
 ])
 
