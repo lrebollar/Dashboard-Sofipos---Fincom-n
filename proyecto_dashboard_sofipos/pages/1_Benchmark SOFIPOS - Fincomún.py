@@ -13,8 +13,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Importar datos
-#dir_dict_sofipos = r'proyecto_dashboard_sofipos/data/dict_sofipos_sector.pkl'
-dir_dict_sofipos = r'C:\Users\lrebollar.e\OneDrive - fincomun.com.mx\Documentos\GitHub\Dashboard Sofipos - Fincomún\proyecto_dashboard_sofipos\data\dict_sofipos_sector.pkl'
+dir_dict_sofipos = r'proyecto_dashboard_sofipos/data/dict_sofipos_sector.pkl'
+#dir_dict_sofipos = r'C:\Users\lrebollar.e\OneDrive - fincomun.com.mx\Documentos\GitHub\Dashboard Sofipos - Fincomún\proyecto_dashboard_sofipos\data\dict_sofipos_sector.pkl'
 
 with open(dir_dict_sofipos, 'rb') as archivo:
     dict_sofipos = pickle.load(archivo)
