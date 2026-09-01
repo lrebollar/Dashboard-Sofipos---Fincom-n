@@ -13,7 +13,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Importar datos
-dir_dict_sofipos = r'proyecto_dashboard_sofipos/data/dict_sofipos_sector.pkl'
+#dir_dict_sofipos = r'proyecto_dashboard_sofipos/data/dict_sofipos_sector.pkl'
+dir_dict_sofipos = r'C:\Users\lrebollar.e\OneDrive - fincomun.com.mx\Documentos\GitHub\Dashboard Sofipos - Fincomún\proyecto_dashboard_sofipos\data\dict_sofipos_sector.pkl'
 
 with open(dir_dict_sofipos, 'rb') as archivo:
     dict_sofipos = pickle.load(archivo)
@@ -49,7 +50,7 @@ df_bench = pd.DataFrame(columns=['Variable', 'sofipo',
                                  'Promedio Histórico'])
 
 for var in df_vars_bench['vars_bench']:
-
+    #var = 'IMOR cartera de crédito'
     var_s = df_vars_bench[df_vars_bench['vars_bench'] == var]['vars_s'].iat[0]
 
     df_indf_fintech_6m_pivot = df_indf_fintech_6m.pivot(index='sofipo', columns='periodo', values=var).reset_index()
@@ -61,7 +62,7 @@ for var in df_vars_bench['vars_bench']:
     # Promedio histórico contemporaneo 
     df_promedio = df_indf_fintech_s[['periodo', 'sofipo',var]]
     df_promedio = df_promedio[df_promedio['periodo'] >= '2023-01-01']
-    df_promedio_gb = df_promedio.groupby('sofipo', )[var].agg('mean').reset_index()
+    df_promedio_gb = df_promedio.groupby('sofipo')[var].agg('mean').reset_index()
     df_promedio_gb.columns = ['sofipo', 'Promedio Histórico']
     df_promedio_gb['Promedio Histórico'] = df_promedio_gb['Promedio Histórico']*100
 
@@ -146,8 +147,8 @@ if mostrar_graficos_imor:
 
     for sofipo, color in colores_sofipo.items():
         df_sofipo = df_filtrado[df_filtrado['sofipo'] == sofipo]
-        if not df_sofipo.empty:
-            hl_valor = df_sofipo['Promedio Histórico'].iat[0]
+        if not df_sofipo.empty:  
+            hl_valor = df_sofipo[df_sofipo['Variable'] == 'IMOR']['Promedio Histórico'].iat[0]
             fig_IMOR.add_hline(
                 y=hl_valor, 
                 line_dash="dash", 
@@ -242,7 +243,7 @@ if mostrar_graficos_imora:
     for sofipo, color in colores_sofipo.items():
         df_sofipo = df_filtrado[df_filtrado['sofipo'] == sofipo]
         if not df_sofipo.empty:
-            hl_valor = df_sofipo['Promedio Histórico'].iat[0]
+            hl_valor = df_sofipo[df_sofipo['Variable'] == 'IMORA']['Promedio Histórico'].iat[0]
             fig_IMORA.add_hline(
                 y=hl_valor, 
                 line_dash="dash", 
@@ -336,7 +337,7 @@ if mostrar_graficos_icor:
     for sofipo, color in colores_sofipo.items():
         df_sofipo = df_filtrado[df_filtrado['sofipo'] == sofipo]
         if not df_sofipo.empty:
-            hl_valor = df_sofipo['Promedio Histórico'].iat[0]
+            hl_valor = df_sofipo[df_sofipo['Variable'] == 'ICOR']['Promedio Histórico'].iat[0]
             fig_ICOR.add_hline(
                 y=hl_valor, 
                 line_dash="dash", 
@@ -430,7 +431,7 @@ if mostrar_graficos_reservas:
     for sofipo, color in colores_sofipo.items():
         df_sofipo = df_filtrado[df_filtrado['sofipo'] == sofipo]
         if not df_sofipo.empty:
-            hl_valor = df_sofipo['Promedio Histórico'].iat[0]
+            hl_valor = df_sofipo[df_sofipo['Variable'] == 'Reservas']['Promedio Histórico'].iat[0]
             fig_RESERVAS.add_hline(
                 y=hl_valor, 
                 line_dash="dash", 
