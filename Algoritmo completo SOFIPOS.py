@@ -41,10 +41,16 @@ df['periodo'] = pd.to_datetime(df['periodo'].astype(str), format='%Y%m').dt.to_p
 #### Base General
 df_cartera = pd.DataFrame(
     columns= ['periodo',
+ 'Activo',
+ 'Efectivo y equivalentes de efectivo',
  'Cartera de crédito',
  'Créditos comerciales',
  'Créditos consumo',
  'Créditos vivienda',
+ 'Activo_i_b100',
+ 'Activo_pct_YoY',
+ 'Efectivo y equivalentes de efectivo_i_b100',
+ 'Efectivo y equivalentes de efectivo_pct_YoY',
  'Cartera de crédito_i_b100',
  'Cartera de crédito_pct_YoY',
  'Créditos comerciales_i_b100',
@@ -62,6 +68,8 @@ df_cartera = pd.DataFrame(
 
 #### Set de variables
 var_cartera = [
+        27100001,
+        27100080,
         27100008, # Cartera
         27100009, # C. Comerciales
         27100010, # C. Consumo
@@ -167,11 +175,14 @@ var_riesgo_E3 = [
 #### Captación tradicional
 #### Base General
 df_captacion = pd.DataFrame(columns= ['periodo',
+ 'Pasivo',
  'Captación tradicional',
  'Cuenta global de captación sin movimientos',
  'Depósitos a plazo',
  'Depósitos de exigibilidad inmediata',
  'Títulos de crédito emitidos',
+ 'Pasivo_i_b100',
+ 'Pasivo_pct_YoY',
  'Captación tradicional_i_b100',
  'Captación tradicional_pct_YoY',
  'Cuenta global de captación sin movimientos_i_b100',
@@ -191,6 +202,7 @@ df_captacion = pd.DataFrame(columns= ['periodo',
 
 #### Set de variables
 var_captacion = [
+        27100053,
         27100044, # Captación tradicional NVL 1
         27100028, # Depósitos de exigibilidad inmediata
         27100029, # Depósitos a plazo
@@ -520,7 +532,13 @@ df_ind = pd.DataFrame(columns=['periodo',
  'GAP / Activo',
  'ICOR cartera de crédito',
  'IMOR cartera de crédito',
+ 'IMOR comercial',
+ 'IMOR consumo',
+ 'IMOR vivienda',
  'IMORA cartera de crédito',
+ 'IMORA comercial',
+ 'IMORA consumo',
+ 'IMORA vivienda',
  'Liquidez',
  'MIN',
  'ROA',
@@ -532,7 +550,13 @@ df_ind = pd.DataFrame(columns=['periodo',
  'GAP / Activo_pct_YoY',
  'ICOR cartera de crédito_pct_YoY',
  'IMOR cartera de crédito_pct_YoY',
+ 'IMOR comercial_pct_YoY',
+ 'IMOR consumo_pct_YoY',
+ 'IMOR vivienda_pct_YoY',
  'IMORA cartera de crédito_pct_YoY',
+ 'IMORA comercial_pct_YoY',
+ 'IMORA consumo_pct_YoY',
+ 'IMORA vivienda_pct_YoY',
  'Liquidez_pct_YoY',
  'MIN_pct_YoY',
  'ROA_pct_YoY',
@@ -551,7 +575,13 @@ var_ind = [
         27200114,	# GAP / Activo
         27200021,	# Capital contable / Activo
         27200005,	# IMOR cartera de crédito
+        27200006,
+        27200007,
+        27200008,
         27200009,	# IMORA cartera de crédito
+        27200010,
+        27200011,
+        27200012,
         27200013,	# ICOR cartera de crédito
         27200017,	# EPRC / Cartera de crédito
         27200115,	# Tasa de interés implícita (TII) cartera de crédito E1 + E2
@@ -617,7 +647,7 @@ df_sofipos_nam = pd.DataFrame({
 dict_sofipos = {}
 
 for sofipo in df_sofipos_nam['nombre']:
-
+    #sofipo = 'Fincomún'
     df_sofipo = df[df['nombre_entidad'] == sofipo]
     fintech = df_sofipos_nam[df_sofipos_nam['nombre'] == sofipo]['fintech'].iat[0]
 
@@ -643,7 +673,7 @@ for sofipo in df_sofipos_nam['nombre']:
         df_sofipo_cartera_pivot[f'{var}_pct_YoY'] = round(df_sofipo_cartera_pivot[var].pct_change(periods=12)*100, 2)
 
     #### Pesos
-    vars = df_sofipo_cartera_pivot.columns.to_list()[2:5]
+    vars = df_sofipo_cartera_pivot.columns.to_list()[3:6]
 
     for var in vars:
 
@@ -778,7 +808,8 @@ for sofipo in df_sofipos_nam['nombre']:
         df_sofipo_captacion_pivot[f'{var}_pct_YoY'] = round(df_sofipo_captacion_pivot[var].pct_change(periods=12)*100, 2)
 
     #### Pesos
-    vars = df_sofipo_captacion_pivot.columns.to_list()[2:6]
+    vars = df_sofipo_captacion_pivot.columns.to_list()[2:7]
+    vars =  set(vars) - set(['Pasivo'])
 
     for var in vars:
 
@@ -1154,6 +1185,7 @@ for sofipo in df_sofipos_nam['nombre']:
 
     print(f'Se agregó la información de Castigos, quitas y condonaciones de la SOFIPO: {sofipo}')
 
+
 dict_sofipos = {
     'Inf_cartera' : df_cartera,
     'Inf_cartera_E1E2' : df_riesgo_E1E2,
@@ -1172,7 +1204,7 @@ dict_sofipos = {
     'Castigos' : df_castigo
 }
 
-dict_sofipos['Ind_financieros']
+########################################################################################################################
 
 df_llaves = pd.DataFrame({
     'llaves' : dict_sofipos.keys(),
@@ -1215,13 +1247,15 @@ llaves = dict_sofipos.keys()
 
 dict_sofipos_fintech = {}
 
-for llave in llaves:
+##############################################################################################################
 
+for llave in llaves:
+    #llave = 'Extras'
     # Variable clave
     v_clave = df_llaves[df_llaves['llaves'] == llave]['v_clave'].iat[0]
     # Pesos
     peso = df_llaves[df_llaves['llaves'] == llave]['pesos'].iat[0]
-
+    
     df = dict_sofipos[llave]
     df_no = df[df['fintech'] == 'NO']
     df_si = df[df['fintech'] == 'SI'] # Son SOFIPOS FINTECH
@@ -1269,7 +1303,7 @@ for llave in llaves:
 
             df_si_g[f'{var}_w'] = round((df_si_g[var]/df_si_g[v_clave])*100, 2)
 
-    if peso == 'NO':
+    elif peso == 'NO':
 
         df_si_g = df_si_s.groupby('periodo').agg('mean').reset_index()
         variables = df_si_g.columns.to_list()
@@ -1277,7 +1311,11 @@ for llave in llaves:
 
         for var in variables:
 
-            df_si_g[f'{var}_pct_YoY'] = round(df_si_g[var].pct_change(periods=12)*100, 2)
+            try:
+                df_si_g[f'{var}_pct_YoY'] = round(df_si_g[var].pct_change(periods=12)*100, 2)
+                
+            except Exception as e:
+                df_si_g[f'{var}_pct_YoY'] = 0
 
     df_si_g['sofipo'] = 'Fintech'
     df_si_g['fintech'] = 'SI'

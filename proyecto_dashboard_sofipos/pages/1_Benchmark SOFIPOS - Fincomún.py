@@ -21,6 +21,7 @@ with open(dir_dict_sofipos, 'rb') as archivo:
 ## Preparación de las bases
 df_indf_original = dict_sofipos['original']['Ind_financieros']
 df_indf_fintech = dict_sofipos['fintech']['Ind_financieros']
+df_pasivos_fintech = dict_sofipos['fintech']['Capt_trad']
 
 sele_sofipos = ['Total SOFIPOS', 'Fintech', 'Fincomún']
 
@@ -470,3 +471,99 @@ if mostrar_graficos_reservas:
     st.plotly_chart(fig_RESERVAS, use_container_width=True)
 
 #############################################################################################
+
+#### Panel Pasivo / Captación ###############################################################
+df_pasivo = df_pasivos_fintech[['periodo', 'Pasivo', 'Captación tradicional', 'sofipo']]
+df_pasivo['periodo'] = pd.to_datetime(df_pasivo['periodo'], format='%Y-%m')
+df_pasivo = df_pasivo[df_pasivo['periodo'] >= '2024-01-01']
+
+df_pasivo['Pasivo'] = df_pasivo['Pasivo']/1000000
+df_pasivo['Captación tradicional'] = df_pasivo['Captación tradicional']/1000000
+
+# --- Datos: Total SOFIPOS ---
+v_periodo_1 = df_pasivo[df_pasivo['sofipo'] == 'Total SOFIPOS']['periodo']
+v_captacion_1 = df_pasivo[df_pasivo['sofipo'] == 'Total SOFIPOS']['Captación tradicional']
+v_pasivo_1 = df_pasivo[df_pasivo['sofipo'] == 'Total SOFIPOS']['Pasivo']
+v_ind_1 = (v_pasivo_1 / v_captacion_1) * 100
+
+# --- Datos: Fincomún ---
+v_periodo_2 = df_pasivo[df_pasivo['sofipo'] == 'Fincomún']['periodo']
+v_captacion_2 = df_pasivo[df_pasivo['sofipo'] == 'Fincomún']['Captación tradicional']
+v_pasivo_2 = df_pasivo[df_pasivo['sofipo'] == 'Fincomún']['Pasivo']
+v_ind_2 = (v_pasivo_2 / v_captacion_2) * 100
+
+fig = make_subplots(
+    rows=1, cols=2,
+    specs=[[{"secondary_y": True}, {"secondary_y": True}]],
+    subplot_titles=("Total SOFIPOS", "Fincomún"),
+    horizontal_spacing=0.1
+)
+
+# ---- Columna 1: Total SOFIPOS ----
+fig.add_trace(go.Bar(
+    x=v_periodo_1, y=v_captacion_1,
+    name=f"Captación Tradicional ({v_captacion_1.iloc[-1]:,.1f})",
+    marker_color="#636EFA",
+    legend="legend"
+), row=1, col=1, secondary_y=False)
+
+fig.add_trace(go.Bar(
+    x=v_periodo_1, y=v_pasivo_1,
+    name=f"Pasivo ({v_pasivo_1.iloc[-1]:,.1f})",
+    marker_color="#EF553B",
+    legend="legend"
+), row=1, col=1, secondary_y=False)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_ind_1,
+    name=f"Pasivo / Captación ({v_ind_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="black", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+# ---- Columna 2: Fincomún ----
+fig.add_trace(go.Bar(
+    x=v_periodo_2, y=v_captacion_2,
+    name=f"Captación Tradicional ({v_captacion_2.iloc[-1]:,.1f})",
+    marker_color="#636EFA",
+    legend="legend2"
+), row=1, col=2, secondary_y=False)
+
+fig.add_trace(go.Bar(
+    x=v_periodo_2, y=v_pasivo_2,
+    name=f"Pasivo ({v_pasivo_2.iloc[-1]:,.1f})",
+    marker_color="#EF553B",
+    legend="legend2"
+), row=1, col=2, secondary_y=False)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_ind_2,
+    name=f"Pasivo / Captación ({v_ind_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="black", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+# ---- Layout general ----
+fig.update_layout(
+    barmode="group",
+    title="Captación/Pasivo - SOFIPOS",
+    template="plotly_white",
+    height=500,
+    width=1200,
+    legend=dict(
+        x=0.01, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    ),
+    legend2=dict(
+        x=0.55, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    )
+)
+
+fig.update_xaxes(tickformat="%b %Y")
+fig.update_yaxes(title_text="Monto en MDP ($)", row=1, col=1, secondary_y=False)
+fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="Monto en MDP ($)", row=1, col=2, secondary_y=False)
+fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=2, secondary_y=True)
+
+st.plotly_chart(fig, use_container_width=True)
