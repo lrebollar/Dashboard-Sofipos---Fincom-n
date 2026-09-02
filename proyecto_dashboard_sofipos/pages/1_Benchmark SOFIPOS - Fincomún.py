@@ -22,6 +22,12 @@ with open(dir_dict_sofipos, 'rb') as archivo:
 ## Preparación de las bases
 df_indf_original = dict_sofipos['original']['Ind_financieros']
 df_indf_fintech = dict_sofipos['fintech']['Ind_financieros']
+segmentos = ['ROA', 'ROE', 'Liquidez', 'MIN', 'GAP / Activo', 'Capital contable / Activo',
+             'IMOR cartera de crédito', 'IMORA cartera de crédito', 'ICOR cartera de crédito',
+             'EPRC / Cartera de crédito', 'Tasa de interés implícita (TII) cartera de crédito E1 + E2', 
+             'Tasa de interés implícita (TII) pasiva']
+
+df_indf_fintech[segmentos] = df_indf_fintech[segmentos]*100
 df_pasivos_fintech = dict_sofipos['fintech']['Capt_trad']
 
 sele_sofipos = ['Total SOFIPOS', 'Fintech', 'Fincomún']
@@ -472,7 +478,70 @@ if mostrar_graficos_reservas:
     st.plotly_chart(fig_RESERVAS, use_container_width=True)
 
 #############################################################################################
+#### Gráfico Indicadores Financieros ########################################################
+df_indf_fintech_p = df_indf_fintech.copy()
+### Formato de fecha
+df_indf_fintech_p['periodo'] = pd.to_datetime(df_indf_fintech_p['periodo'], format='%Y-%m')
+df_indf_fintech_p = df_indf_fintech_p[df_indf_fintech_p['periodo'] >= '2024-01-01']
 
+### Selector
+segmento = st.selectbox("Segmento de CT", options= segmentos)
+st.subheader(f"{segmento}")
+
+### Base seleccionada
+df_segmento = df_indf_fintech_p[['periodo', segmento, 'sofipo']] 
+
+v_periodo = df_segmento[df_segmento['sofipo'] == 'Fincomún']['periodo']
+v_segmento_finco = df_segmento[df_segmento['sofipo'] == 'Fincomún'][segmento]
+v_segmento_sofipos = df_segmento[df_segmento['sofipo'] == 'Total SOFIPOS'][segmento]
+
+fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+fig.add_trace(
+    go.Scatter(
+        x=v_periodo,
+        y=v_segmento_finco,
+        mode="lines+markers",
+        name=f"Fincomun ({v_segmento_finco.iloc[-1]:.1f}%)",
+        line=dict(color="blue", width=2)
+    ),
+    secondary_y=True
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=v_periodo,
+        y=v_segmento_sofipos,
+        mode="lines+markers",
+        name=f"SOFIPOS ({v_segmento_sofipos.iloc[-1]:.1f}%)",
+        line=dict(color="black", width=2)
+    ),
+    secondary_y=True
+)
+
+
+fig.update_layout(
+    barmode="group",
+    title=f"{segmento} (%)",
+    xaxis_title="Fecha",
+    legend=dict(
+        x=0.01,
+        y=0.99,
+        xanchor="left",
+        yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)",
+        bordercolor="rgba(0,0,0,0.2)",
+        borderwidth=1
+    ),
+    template="plotly_white"
+)
+
+fig.update_xaxes(tickformat="%b %Y")
+fig.update_yaxes(title_text=f"{segmento} (%)", secondary_y=True)
+
+st.plotly_chart(fig, use_container_width=True)
+
+#############################################################################################
 #### Panel Pasivo / Captación ###############################################################
 df_pasivo = df_pasivos_fintech[['periodo', 'Pasivo', 'Captación tradicional', 'sofipo']]
 df_pasivo['periodo'] = pd.to_datetime(df_pasivo['periodo'], format='%Y-%m')

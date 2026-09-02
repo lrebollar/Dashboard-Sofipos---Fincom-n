@@ -15,11 +15,10 @@ st.subheader("Indicadores Financieros")
 
 # Importar datos
 dir_dict_sofipos = r'proyecto_dashboard_sofipos/data/dict_sofipos_sector.pkl' #Cambiar al final
+#dir_dict_sofipos = r'C:\Users\lrebollar.e\OneDrive - fincomun.com.mx\Documentos\GitHub\Dashboard Sofipos - Fincomún\proyecto_dashboard_sofipos\data\dict_sofipos_sector.pkl'
 
 with open(dir_dict_sofipos, 'rb') as archivo:
     dict_sofipos = pickle.load(archivo)
-
-dict_sofipos['fintech'].keys()
 
 ## CT de crédito 
 df_Ind = dict_sofipos['fintech']['Ind_financieros']
@@ -42,11 +41,12 @@ st.subheader(f"{segmento}")
 #################################################################################
 #### Deslizantes - Segmento de CT ####
 #################################################################################
+df_Ind[segmentos] = df_Ind[segmentos] * 100
 
 ##### Periodo ####
 var_Ind_segmento_i100 = f"{segmento}"
 var_Ind_segmento_pch = f"{segmento}_pct_YoY"
-titulo_eje_i100 = f"{segmento}"
+titulo_eje_i100 = f"{segmento} (%)"
 titulo_eje_pch = 'Tasa de cambio mensual anual (YoY%)'
 
 periodo_segmento_Ind, df_filtrado_segmento_Ind = desl_2var(df = df_Ind,
@@ -109,8 +109,8 @@ plt_segmento_Ind_sector_pch = plot_st(df = df_filtrado_segmento_Ind,
 
 ###### PANEL ######
 panel_segmento_Ind = make_subplots(rows=2, cols=2,
-                            subplot_titles=("SECTOR: Índice Base 100", "SECTOR Tasa de Variación mensual anual (YoY%)", 
-                                            "SOFIPO: Índice Base 100", "SOFIPO Tasa de Variación mensual anual (YoY%)"),
+                            subplot_titles=("SECTOR: Índice (%)", "SECTOR: Tasa de Variación mensual anual (YoY%)", 
+                                            "SOFIPO: Índice (%)", "SOFIPO: Tasa de Variación mensual anual (YoY%)"),
                             vertical_spacing=0.08)
 
 #### Leyendas para cada gráfico
