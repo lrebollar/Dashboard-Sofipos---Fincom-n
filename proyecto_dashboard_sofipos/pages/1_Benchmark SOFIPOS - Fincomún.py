@@ -479,6 +479,7 @@ if mostrar_graficos_reservas:
 
 #############################################################################################
 #### Gráfico Indicadores Financieros ########################################################
+
 df_indf_fintech_p = df_indf_fintech.copy()
 ### Formato de fecha
 df_indf_fintech_p['periodo'] = pd.to_datetime(df_indf_fintech_p['periodo'], format='%Y-%m')
@@ -635,5 +636,79 @@ fig.update_yaxes(title_text="Monto en MDP ($)", row=1, col=1, secondary_y=False)
 fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=1, secondary_y=True)
 fig.update_yaxes(title_text="Monto en MDP ($)", row=1, col=2, secondary_y=False)
 fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=2, secondary_y=True)
+
+st.plotly_chart(fig, use_container_width=True)
+
+#############################################################################################
+#### ROA - ROE ###############################################################
+
+'ROA', 'ROE'
+# --- Datos: Total SOFIPOS ---
+v_periodo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['periodo']
+v_ROA_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['ROA']
+v_ROE_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['ROE']
+
+# --- Datos: Fincomún ---
+v_periodo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['periodo']
+v_ROA_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['ROA']
+v_ROE_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['ROE']
+
+fig = make_subplots(
+    rows=1, cols=2,
+    specs=[[{"secondary_y": True}, {"secondary_y": True}]],
+    subplot_titles=("Total SOFIPOS", "Fincomún"),
+    horizontal_spacing=0.1
+)
+
+# ---- Columna 1: Total SOFIPOS ----
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_ROA_1,
+    name=f"ROA ({v_ROA_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="gold", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_ROE_1,
+    name=f"ROE ({v_ROE_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="blue", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+# ---- Columna 2: Fincomún ----
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_ROA_2,
+    name=f"ROA ({v_ROA_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="gold", width=2),
+    legend="legend"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_ROE_2,
+    name=f"ROE ({v_ROE_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="blue", width=2),
+    legend="legend"
+), row=1, col=2, secondary_y=True)
+
+# ---- Layout general ----
+fig.update_layout(
+    barmode="group",
+    title="ROA - ROE",
+    template="plotly_white",
+    height=500,
+    width=1200,
+    legend=dict(
+        x=0.01, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    ),
+    legend2=dict(
+        x=0.55, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    )
+)
+
+fig.update_xaxes(tickformat="%b %Y")
+fig.update_yaxes(title_text="(%)", row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="(%)", row=1, col=2, secondary_y=True)
 
 st.plotly_chart(fig, use_container_width=True)
