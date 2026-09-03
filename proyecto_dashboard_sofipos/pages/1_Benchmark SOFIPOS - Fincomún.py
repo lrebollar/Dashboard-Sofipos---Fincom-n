@@ -22,13 +22,6 @@ with open(dir_dict_sofipos, 'rb') as archivo:
 ## Preparación de las bases
 df_indf_original = dict_sofipos['original']['Ind_financieros']
 df_indf_fintech = dict_sofipos['fintech']['Ind_financieros']
-segmentos = ['ROA', 'ROE', 'Liquidez', 'MIN', 'GAP / Activo', 'Capital contable / Activo',
-             'IMOR cartera de crédito', 'IMORA cartera de crédito', 'ICOR cartera de crédito',
-             'EPRC / Cartera de crédito', 'Tasa de interés implícita (TII) cartera de crédito E1 + E2', 
-             'Tasa de interés implícita (TII) pasiva', 'IMOR comercial', 'IMOR consumo', 'IMOR vivienda',
-             'IMORA comercial', 'IMORA consumo', 'IMORA vivienda']
-
-df_indf_fintech[segmentos] = df_indf_fintech[segmentos]*100
 df_pasivos_fintech = dict_sofipos['fintech']['Capt_trad']
 
 sele_sofipos = ['Total SOFIPOS', 'Fintech', 'Fincomún']
@@ -482,6 +475,14 @@ if mostrar_graficos_reservas:
 #### Gráfico Indicadores Financieros ########################################################
 
 df_indf_fintech_p = df_indf_fintech.copy()
+
+segmentos = ['ROA', 'ROE', 'Liquidez', 'MIN', 'GAP / Activo', 'Capital contable / Activo',
+             'IMOR cartera de crédito', 'IMORA cartera de crédito', 'ICOR cartera de crédito',
+             'EPRC / Cartera de crédito', 'Tasa de interés implícita (TII) cartera de crédito E1 + E2', 
+             'Tasa de interés implícita (TII) pasiva', 'IMOR comercial', 'IMOR consumo', 'IMOR vivienda',
+             'IMORA comercial', 'IMORA consumo', 'IMORA vivienda']
+
+df_indf_fintech_p[segmentos] = df_indf_fintech_p[segmentos]*100
 ### Formato de fecha
 df_indf_fintech_p['periodo'] = pd.to_datetime(df_indf_fintech_p['periodo'], format='%Y-%m')
 df_indf_fintech_p = df_indf_fintech_p[df_indf_fintech_p['periodo'] >= '2024-01-01']
