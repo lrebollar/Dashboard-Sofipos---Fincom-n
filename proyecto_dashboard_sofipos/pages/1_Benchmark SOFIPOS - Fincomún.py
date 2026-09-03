@@ -721,7 +721,6 @@ st.plotly_chart(fig, use_container_width=True)
 
 #############################################################################################
 #### IMOR ###################################################################################
-
 # --- Datos: Total SOFIPOS ---
 v_periodo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['periodo']
 v_imor_total_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMOR cartera de crédito']
@@ -735,6 +734,17 @@ v_imor_total_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['
 v_imor_comercial_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR comercial']
 v_imor_consumo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR consumo']
 v_imor_vivienda_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR vivienda']
+
+# --- Límite compartido (único eje: secondary_y) ---
+series_imor = [
+    v_imor_total_1, v_imor_comercial_1, v_imor_consumo_1, v_imor_vivienda_1,
+    v_imor_total_2, v_imor_comercial_2, v_imor_consumo_2, v_imor_vivienda_2
+]
+max_val = max(s.max() for s in series_imor)
+min_val = min(s.min() for s in series_imor)
+
+margen = (max_val - min_val) * 0.05
+rango_imor = [min_val - margen, max_val + margen]
 
 fig = make_subplots(
     rows=1, cols=2,
@@ -819,14 +829,12 @@ fig.update_layout(
 )
 
 fig.update_xaxes(tickformat="%b %Y")
-fig.update_yaxes(title_text="(%)", row=1, col=1, secondary_y=True)
-fig.update_yaxes(title_text="(%)", row=1, col=2, secondary_y=True)
+fig.update_yaxes(title_text="(%)", range=rango_imor, row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="(%)", range=rango_imor, row=1, col=2, secondary_y=True)
 
 st.plotly_chart(fig, use_container_width=True)
-
 #############################################################################################
 #### IMORA ###################################################################################
-
 # --- Datos: Total SOFIPOS ---
 v_periodo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['periodo']
 v_IMORA_total_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMORA cartera de crédito']
@@ -840,6 +848,17 @@ v_IMORA_total_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún'][
 v_IMORA_comercial_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA comercial']
 v_IMORA_consumo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA consumo']
 v_IMORA_vivienda_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA vivienda']
+
+# --- Límite compartido (único eje: secondary_y) ---
+series_imora = [
+    v_IMORA_total_1, v_IMORA_comercial_1, v_IMORA_consumo_1, v_IMORA_vivienda_1,
+    v_IMORA_total_2, v_IMORA_comercial_2, v_IMORA_consumo_2, v_IMORA_vivienda_2
+]
+max_val = max(s.max() for s in series_imora)
+min_val = min(s.min() for s in series_imora)
+
+margen = (max_val - min_val) * 0.05
+rango_imora = [min_val - margen, max_val + margen]
 
 fig = make_subplots(
     rows=1, cols=2,
@@ -924,7 +943,7 @@ fig.update_layout(
 )
 
 fig.update_xaxes(tickformat="%b %Y")
-fig.update_yaxes(title_text="(%)", row=1, col=1, secondary_y=True)
-fig.update_yaxes(title_text="(%)", row=1, col=2, secondary_y=True)
+fig.update_yaxes(title_text="(%)", range=rango_imora, row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="(%)", range=rango_imora, row=1, col=2, secondary_y=True)
 
 st.plotly_chart(fig, use_container_width=True)
