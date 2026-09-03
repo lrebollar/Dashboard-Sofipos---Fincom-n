@@ -640,9 +640,8 @@ fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=2, secondary_y
 st.plotly_chart(fig, use_container_width=True)
 
 #############################################################################################
-#### ROA - ROE ###############################################################
+#### ROA - ROE ##############################################################################
 
-'ROA', 'ROE'
 # --- Datos: Total SOFIPOS ---
 v_periodo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['periodo']
 v_ROA_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['ROA']
@@ -694,6 +693,216 @@ fig.add_trace(go.Scatter(
 fig.update_layout(
     barmode="group",
     title="ROA - ROE",
+    template="plotly_white",
+    height=500,
+    width=1200,
+    legend=dict(
+        x=0.01, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    ),
+    legend2=dict(
+        x=0.55, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    )
+)
+
+fig.update_xaxes(tickformat="%b %Y")
+fig.update_yaxes(title_text="(%)", row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="(%)", row=1, col=2, secondary_y=True)
+
+st.plotly_chart(fig, use_container_width=True)
+
+#############################################################################################
+#### IMOR ###################################################################################
+
+# --- Datos: Total SOFIPOS ---
+v_periodo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['periodo']
+v_imor_total_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMOR cartera de crédito']
+v_imor_comercial_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMOR comercial']
+v_imor_consumo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMOR consumo']
+v_imor_vivienda_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMOR vivienda']
+
+# --- Datos: Fincomún ---
+v_periodo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['periodo']
+v_imor_total_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR cartera de crédito']
+v_imor_comercial_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR comercial']
+v_imor_consumo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR consumo']
+v_imor_vivienda_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMOR vivienda']
+
+fig = make_subplots(
+    rows=1, cols=2,
+    specs=[[{"secondary_y": True}, {"secondary_y": True}]],
+    subplot_titles=("Total SOFIPOS", "Fincomún"),
+    horizontal_spacing=0.1
+)
+
+# ---- Columna 1: Total SOFIPOS ----
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_imor_total_1,
+    name=f"IMOR cartera de crédito ({v_imor_total_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="black", width=4),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_imor_comercial_1,
+    name=f"IMOR comercial ({v_imor_comercial_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="gold", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_imor_consumo_1,
+    name=f"IMOR consumo ({v_imor_consumo_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="blue", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_imor_vivienda_1,
+    name=f"IMOR vivienda ({v_imor_vivienda_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="green", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+# ---- Columna 2: Fincomún ----
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_imor_total_2,
+    name=f"IMOR cartera de crédito ({v_imor_total_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="black", width=4),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_imor_comercial_2,
+    name=f"IMOR comercial ({v_imor_comercial_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="gold", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_imor_consumo_2,
+    name=f"IMOR consumo ({v_imor_consumo_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="blue", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_imor_vivienda_2,
+    name=f"IMOR vivienda ({v_imor_vivienda_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="green", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+# ---- Layout general ----
+fig.update_layout(
+    barmode="group",
+    title="IMOR por segmento",
+    template="plotly_white",
+    height=500,
+    width=1200,
+    legend=dict(
+        x=0.01, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    ),
+    legend2=dict(
+        x=0.55, y=0.99, xanchor="left", yanchor="top",
+        bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0.2)", borderwidth=1
+    )
+)
+
+fig.update_xaxes(tickformat="%b %Y")
+fig.update_yaxes(title_text="(%)", row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="(%)", row=1, col=2, secondary_y=True)
+
+st.plotly_chart(fig, use_container_width=True)
+
+#############################################################################################
+#### IMORA ###################################################################################
+
+# --- Datos: Total SOFIPOS ---
+v_periodo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['periodo']
+v_IMORA_total_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMORA cartera de crédito']
+v_IMORA_comercial_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMORA comercial']
+v_IMORA_consumo_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMORA consumo']
+v_IMORA_vivienda_1 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Total SOFIPOS']['IMORA vivienda']
+
+# --- Datos: Fincomún ---
+v_periodo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['periodo']
+v_IMORA_total_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA cartera de crédito']
+v_IMORA_comercial_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA comercial']
+v_IMORA_consumo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA consumo']
+v_IMORA_vivienda_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['IMORA vivienda']
+
+fig = make_subplots(
+    rows=1, cols=2,
+    specs=[[{"secondary_y": True}, {"secondary_y": True}]],
+    subplot_titles=("Total SOFIPOS", "Fincomún"),
+    horizontal_spacing=0.1
+)
+
+# ---- Columna 1: Total SOFIPOS ----
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_IMORA_total_1,
+    name=f"IMORA cartera de crédito ({v_IMORA_total_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="black", width=4),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_IMORA_comercial_1,
+    name=f"IMORA comercial ({v_IMORA_comercial_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="gold", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_IMORA_consumo_1,
+    name=f"IMORA consumo ({v_IMORA_consumo_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="blue", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_1, y=v_IMORA_vivienda_1,
+    name=f"IMORA vivienda ({v_IMORA_vivienda_1.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="green", width=2),
+    legend="legend"
+), row=1, col=1, secondary_y=True)
+
+# ---- Columna 2: Fincomún ----
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_IMORA_total_2,
+    name=f"IMORA cartera de crédito ({v_IMORA_total_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="black", width=4),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_IMORA_comercial_2,
+    name=f"IMORA comercial ({v_IMORA_comercial_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="gold", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_IMORA_consumo_2,
+    name=f"IMORA consumo ({v_IMORA_consumo_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="blue", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+fig.add_trace(go.Scatter(
+    x=v_periodo_2, y=v_IMORA_vivienda_2,
+    name=f"IMORA vivienda ({v_IMORA_vivienda_2.iloc[-1]:.1f}%)",
+    mode="lines+markers", line=dict(color="green", width=2),
+    legend="legend2"
+), row=1, col=2, secondary_y=True)
+
+# ---- Layout general ----
+fig.update_layout(
+    barmode="group",
+    title="IMORA por segmento",
     template="plotly_white",
     height=500,
     width=1200,
