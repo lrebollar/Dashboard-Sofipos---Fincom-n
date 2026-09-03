@@ -189,8 +189,6 @@ if mostrar_graficos_imor:
     st.plotly_chart(fig_IMOR, use_container_width=True)
 
 #############################################################################################
-
-
 #### Tabla a desplegar: IMORA
 st.subheader('IMORA (%)')
 
@@ -565,6 +563,14 @@ v_captacion_2 = df_pasivo[df_pasivo['sofipo'] == 'Fincomún']['Captación tradic
 v_pasivo_2 = df_pasivo[df_pasivo['sofipo'] == 'Fincomún']['Pasivo']
 v_ind_2 = (v_pasivo_2 / v_captacion_2) * 100
 
+# --- Límites compartidos ---
+max_izq = max(v_captacion_1.max(), v_pasivo_1.max(), v_captacion_2.max(), v_pasivo_2.max())
+max_der = max(v_ind_1.max(), v_ind_2.max())
+
+# margen de respiro (5%) para que las barras/línea no toquen el borde superior
+rango_izq = [0, max_izq * 1.05]
+rango_der = [0, max_der * 1.05]
+
 fig = make_subplots(
     rows=1, cols=2,
     specs=[[{"secondary_y": True}, {"secondary_y": True}]],
@@ -634,10 +640,10 @@ fig.update_layout(
 )
 
 fig.update_xaxes(tickformat="%b %Y")
-fig.update_yaxes(title_text="Monto en MDP ($)", row=1, col=1, secondary_y=False)
-fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=1, secondary_y=True)
-fig.update_yaxes(title_text="Monto en MDP ($)", row=1, col=2, secondary_y=False)
-fig.update_yaxes(title_text="Pasivo / Captación (%)", row=1, col=2, secondary_y=True)
+fig.update_yaxes(title_text="Monto en MDP ($)", range=rango_izq, row=1, col=1, secondary_y=False)
+fig.update_yaxes(title_text="Pasivo / Captación (%)", range=rango_der, row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="Monto en MDP ($)", range=rango_izq, row=1, col=2, secondary_y=False)
+fig.update_yaxes(title_text="Pasivo / Captación (%)", range=rango_der, row=1, col=2, secondary_y=True)
 
 st.plotly_chart(fig, use_container_width=True)
 
