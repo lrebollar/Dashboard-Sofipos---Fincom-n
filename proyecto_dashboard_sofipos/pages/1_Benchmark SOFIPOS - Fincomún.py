@@ -652,6 +652,13 @@ v_periodo_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['per
 v_ROA_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['ROA']
 v_ROE_2 = df_indf_fintech_p[df_indf_fintech_p['sofipo'] == 'Fincomún']['ROE']
 
+# --- Límite compartido (único eje: secondary_y) ---
+max_val = max(v_ROA_1.max(), v_ROE_1.max(), v_ROA_2.max(), v_ROE_2.max())
+min_val = min(v_ROA_1.min(), v_ROE_1.min(), v_ROA_2.min(), v_ROE_2.min())
+
+margen = (max_val - min_val) * 0.05
+rango_pct = [min_val - margen, max_val + margen]
+
 fig = make_subplots(
     rows=1, cols=2,
     specs=[[{"secondary_y": True}, {"secondary_y": True}]],
@@ -707,8 +714,8 @@ fig.update_layout(
 )
 
 fig.update_xaxes(tickformat="%b %Y")
-fig.update_yaxes(title_text="(%)", row=1, col=1, secondary_y=True)
-fig.update_yaxes(title_text="(%)", row=1, col=2, secondary_y=True)
+fig.update_yaxes(title_text="(%)", range=rango_pct, row=1, col=1, secondary_y=True)
+fig.update_yaxes(title_text="(%)", range=rango_pct, row=1, col=2, secondary_y=True)
 
 st.plotly_chart(fig, use_container_width=True)
 
