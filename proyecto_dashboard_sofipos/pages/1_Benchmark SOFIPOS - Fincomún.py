@@ -798,7 +798,7 @@ fig.add_trace(go.Scatter(
 # ---- Layout general ----
 fig.update_layout(
     barmode="group",
-    title="IMOR por segmento",
+    title="IMOR",
     template="plotly_white",
     height=500,
     width=1200,
@@ -903,7 +903,7 @@ fig.add_trace(go.Scatter(
 # ---- Layout general ----
 fig.update_layout(
     barmode="group",
-    title="IMORA por segmento",
+    title="IMORA",
     template="plotly_white",
     height=500,
     width=1200,
