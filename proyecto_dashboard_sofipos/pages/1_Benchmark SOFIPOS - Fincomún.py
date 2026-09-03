@@ -25,7 +25,8 @@ df_indf_fintech = dict_sofipos['fintech']['Ind_financieros']
 segmentos = ['ROA', 'ROE', 'Liquidez', 'MIN', 'GAP / Activo', 'Capital contable / Activo',
              'IMOR cartera de crédito', 'IMORA cartera de crédito', 'ICOR cartera de crédito',
              'EPRC / Cartera de crédito', 'Tasa de interés implícita (TII) cartera de crédito E1 + E2', 
-             'Tasa de interés implícita (TII) pasiva']
+             'Tasa de interés implícita (TII) pasiva', 'IMOR comercial', 'IMOR consumo', 'IMOR vivienda',
+             'IMORA comercial', 'IMORA consumo', 'IMORA vivienda']
 
 df_indf_fintech[segmentos] = df_indf_fintech[segmentos]*100
 df_pasivos_fintech = dict_sofipos['fintech']['Capt_trad']
