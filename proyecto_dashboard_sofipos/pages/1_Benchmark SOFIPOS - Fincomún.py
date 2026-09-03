@@ -487,7 +487,7 @@ df_indf_fintech_p['periodo'] = pd.to_datetime(df_indf_fintech_p['periodo'], form
 df_indf_fintech_p = df_indf_fintech_p[df_indf_fintech_p['periodo'] >= '2024-01-01']
 
 ### Selector
-segmento = st.selectbox("Segmento de CT", options= segmentos)
+segmento = st.selectbox("Segmento de CT", options= segmentos, index=segmentos.index("Liquidez"))
 st.subheader(f"{segmento}")
 
 ### Base seleccionada
